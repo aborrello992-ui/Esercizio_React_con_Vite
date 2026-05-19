@@ -79,7 +79,8 @@ body {
 
 .list-section,
 .counter-section,
-.form-section {
+.form-section,
+.loading-section {
   margin-top: 40px;
 }
 
@@ -150,5 +151,46 @@ body {
 
 .result-card p {
   margin: 8px 0;
+  font-size: 18px;
+}
+
+.loading-message {
+  margin: 16px 0 0;
+  color: #1f6feb;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.error-message {
+  margin: 16px 0 0;
+  color: #c62828;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.users-list {
+  display: grid;
+  gap: 16px;
+  padding: 0;
+  margin: 24px 0 0;
+  list-style: none;
+}
+
+.user-card {
+  padding: 18px;
+  border: 1px solid #d8e2f0;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.user-name {
+  margin: 0 0 8px;
+  color: #202124;
+  font-size: 22px;
+}
+
+.user-email {
+  margin: 0;
+  color: #4b5563;
   font-size: 18px;
 }

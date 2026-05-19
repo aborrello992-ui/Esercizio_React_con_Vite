@@ -34,6 +34,13 @@ L'ultimo aggiornamento trasforma:
 - `List` in un compound component con `List.Item`;
 - `Form` in un compound component con `Form.Input`, `Form.SubmitButton` e `Form.ResultCard`.
 
+La nuova feature aggiunge:
+
+- un componente `LoadingData`;
+- un bottone per caricare dati da una API esterna;
+- una chiamata a JSONPlaceholder;
+- una lista di utenti con nome e mail.
+
 ## Tecnologie utilizzate
 
 - React
@@ -54,6 +61,7 @@ esercizio-02-vite-react/
 │   │   ├── Form.jsx
 │   │   ├── Header.jsx
 │   │   ├── List.jsx
+│   │   ├── LoadingData.jsx
 │   │   └── Navbar.jsx
 │   ├── index.css
 │   └── main.jsx
@@ -77,7 +85,7 @@ Al suo interno sono presenti:
 - una label con classe `input-label`;
 - un input con classe `text-input`.
 - un array di nomi chiamato `students`;
-- i componenti `Navbar`, `Header`, `List`, `Counter` e `Form`;
+- i componenti `Navbar`, `Header`, `List`, `Counter`, `Form` e `LoadingData`;
 - l'uso di compound components per `List` e `Form`.
 
 La label e collegata all'input grazie a:
@@ -209,6 +217,28 @@ Il componente viene usato cosi:
 
 Per condividere i dati tra `Form` e i suoi sotto-componenti viene usato il Context di React.
 
+### `src/components/LoadingData.jsx`
+
+Questo componente mostra un bottone.
+
+Al click sul bottone viene eseguita una chiamata API con `fetch`:
+
+```jsx
+fetch('https://jsonplaceholder.typicode.com/users')
+```
+
+Gli utenti ricevuti vengono salvati in uno stato React tramite `useState`.
+
+Per ogni utente viene mostrato:
+
+- il nome;
+- la mail.
+
+Il componente gestisce anche:
+
+- lo stato di caricamento;
+- un eventuale messaggio di errore.
+
 ### `src/index.css`
 
 Questo file contiene gli stili CSS applicati tramite le classi assegnate nel componente React.
@@ -224,6 +254,7 @@ Sono stati personalizzati:
 - lo stile del contatore;
 - lo stile del form;
 - lo stile della card con i dati inviati.
+- lo stile della lista utenti caricata dalla API.
 
 ## Comandi disponibili
 

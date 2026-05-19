@@ -2,6 +2,7 @@ import Counter from './components/Counter.jsx'
 import Form from './components/Form.jsx'
 import Header from './components/Header.jsx'
 import List from './components/List.jsx'
+import LoadingData from './components/LoadingData.jsx'
 import Navbar from './components/Navbar.jsx'
 
 function App() {
@@ -49,6 +50,8 @@ function App() {
           <Form.SubmitButton>Invia</Form.SubmitButton>
           <Form.ResultCard />
         </Form>
+
+        <LoadingData />
       </main>
     </>
   )
