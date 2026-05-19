@@ -1,4 +1,4 @@
-# Esercizio 02 - React con Vite
+# Esercizio  - React con Vite
 
 Questo progetto e stato creato con il builder ufficiale di Vite usando il template React.
 
