@@ -25,9 +25,30 @@ function App() {
           />
         </div>
 
-        <List names={students} />
+        <List title="Lista studenti">
+          {students.map((student) => (
+            <List.Item key={student}>{student}</List.Item>
+          ))}
+        </List>
+
         <Counter />
-        <Form />
+
+        <Form>
+          <Form.Input
+            field="name"
+            label="Nome"
+            type="text"
+            placeholder="Scrivi il tuo nome"
+          />
+          <Form.Input
+            field="email"
+            label="Mail"
+            type="email"
+            placeholder="Scrivi la tua mail"
+          />
+          <Form.SubmitButton>Invia</Form.SubmitButton>
+          <Form.ResultCard />
+        </Form>
       </main>
     </>
   )

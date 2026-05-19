@@ -29,6 +29,11 @@ La nuova implementazione aggiunge inoltre:
 - uso di `e.preventDefault()` per impedire il refresh della pagina;
 - una card che mostra i dati inviati tramite il form.
 
+L'ultimo aggiornamento trasforma:
+
+- `List` in un compound component con `List.Item`;
+- `Form` in un compound component con `Form.Input`, `Form.SubmitButton` e `Form.ResultCard`.
+
 ## Tecnologie utilizzate
 
 - React
@@ -72,7 +77,8 @@ Al suo interno sono presenti:
 - una label con classe `input-label`;
 - un input con classe `text-input`.
 - un array di nomi chiamato `students`;
-- i componenti `Navbar`, `Header`, `List`, `Counter` e `Form`.
+- i componenti `Navbar`, `Header`, `List`, `Counter` e `Form`;
+- l'uso di compound components per `List` e `Form`.
 
 La label e collegata all'input grazie a:
 
@@ -88,13 +94,17 @@ id="student-name"
 
 In React si usa `htmlFor` al posto di `for`, perche `for` e una parola riservata di JavaScript.
 
-Il componente `List` riceve l'array di nomi in questo modo:
+Il componente `List` viene usato come compound component in questo modo:
 
 ```jsx
-<List names={students} />
+<List title="Lista studenti">
+  {students.map((student) => (
+    <List.Item key={student}>{student}</List.Item>
+  ))}
+</List>
 ```
 
-Questo passaggio si chiama `props`: il componente padre passa un dato al componente figlio.
+Il componente padre e `List`, mentre `List.Item` e un sotto-componente usato per costruire ogni elemento della lista.
 
 ### `src/components/Navbar.jsx`
 
@@ -116,13 +126,20 @@ Al centro dell'header viene mostrato un titolo `h1`.
 
 ### `src/components/List.jsx`
 
-Questo componente riceve una props chiamata `names`.
+Questo componente e stato trasformato in compound component.
 
-La props contiene un array di nomi. Il componente usa il metodo `map()` per creare un elemento `li` per ogni nome:
+Il componente principale `List` riceve:
+
+- una prop `title`;
+- dei `children`, cioe i sotto-componenti inseriti tra apertura e chiusura di `List`.
+
+Il sotto-componente `List.Item` crea il singolo elemento `li`.
+
+In `App.jsx`, il metodo `map()` viene usato per creare un `List.Item` per ogni nome:
 
 ```jsx
-{names.map((name) => (
-  <li key={name}>{name}</li>
+{students.map((student) => (
+  <List.Item key={student}>{student}</List.Item>
 ))}
 ```
 
@@ -141,7 +158,17 @@ Sono presenti due bottoni:
 
 ### `src/components/Form.jsx`
 
-Questo componente mostra un form con due campi:
+Questo componente e stato trasformato in compound component.
+
+Il componente principale `Form` gestisce lo stato dei campi e il submit.
+
+I sotto-componenti sono:
+
+- `Form.Input`, per creare un campo del form;
+- `Form.SubmitButton`, per creare il bottone di invio;
+- `Form.ResultCard`, per mostrare i dati inviati.
+
+Il form mostra due campi:
 
 - nome;
 - mail.
@@ -168,6 +195,19 @@ e.preventDefault()
 Questo metodo impedisce al browser di ricaricare la pagina quando il form viene inviato.
 
 Dopo il submit viene mostrata una card con il nome e la mail inseriti.
+
+Il componente viene usato cosi:
+
+```jsx
+<Form>
+  <Form.Input field="name" label="Nome" type="text" />
+  <Form.Input field="email" label="Mail" type="email" />
+  <Form.SubmitButton>Invia</Form.SubmitButton>
+  <Form.ResultCard />
+</Form>
+```
+
+Per condividere i dati tra `Form` e i suoi sotto-componenti viene usato il Context di React.
 
 ### `src/index.css`
 

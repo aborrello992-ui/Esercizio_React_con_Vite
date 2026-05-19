@@ -1,6 +1,12 @@
-import { useState } from 'react'
+import { createContext, useContext, useState } from 'react'
 
-function Form() {
+const FormContext = createContext()
+
+function useFormContext() {
+  return useContext(FormContext)
+}
+
+function Form({ children }) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [submittedData, setSubmittedData] = useState(null)
@@ -14,53 +20,75 @@ function Form() {
     })
   }
 
+  const formValue = {
+    email,
+    name,
+    setEmail,
+    setName,
+    submittedData,
+  }
+
   return (
-    <section className="form-section">
-      <h2 className="section-title">Form studente</h2>
+    <FormContext.Provider value={formValue}>
+      <section className="form-section">
+        <h2 className="section-title">Form studente</h2>
 
-      <form className="student-form" onSubmit={handleSubmit}>
-        <div className="form-field">
-          <label className="input-label" htmlFor="name">
-            Nome
-          </label>
-          <input
-            className="text-input"
-            id="name"
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Scrivi il tuo nome"
-          />
-        </div>
-
-        <div className="form-field">
-          <label className="input-label" htmlFor="email">
-            Mail
-          </label>
-          <input
-            className="text-input"
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Scrivi la tua mail"
-          />
-        </div>
-
-        <button className="submit-button" type="submit">
-          Invia
-        </button>
-      </form>
-
-      {submittedData && (
-        <div className="result-card">
-          <h3 className="result-title">Dati inviati</h3>
-          <p>Nome: {submittedData.name}</p>
-          <p>Mail: {submittedData.email}</p>
-        </div>
-      )}
-    </section>
+        <form className="student-form" onSubmit={handleSubmit}>
+          {children}
+        </form>
+      </section>
+    </FormContext.Provider>
   )
 }
+
+function FormInput({ field, label, placeholder, type }) {
+  const { email, name, setEmail, setName } = useFormContext()
+  const value = field === 'name' ? name : email
+  const setValue = field === 'name' ? setName : setEmail
+
+  return (
+    <div className="form-field">
+      <label className="input-label" htmlFor={field}>
+        {label}
+      </label>
+      <input
+        className="text-input"
+        id={field}
+        type={type}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder={placeholder}
+      />
+    </div>
+  )
+}
+
+function FormSubmitButton({ children }) {
+  return (
+    <button className="submit-button" type="submit">
+      {children}
+    </button>
+  )
+}
+
+function FormResultCard() {
+  const { submittedData } = useFormContext()
+
+  if (!submittedData) {
+    return null
+  }
+
+  return (
+    <div className="result-card">
+      <h3 className="result-title">Dati inviati</h3>
+      <p>Nome: {submittedData.name}</p>
+      <p>Mail: {submittedData.email}</p>
+    </div>
+  )
+}
+
+Form.Input = FormInput
+Form.SubmitButton = FormSubmitButton
+Form.ResultCard = FormResultCard
 
 export default Form
