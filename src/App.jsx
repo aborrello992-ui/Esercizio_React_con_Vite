@@ -1,3 +1,5 @@
+import Counter from './components/Counter.jsx'
+import Form from './components/Form.jsx'
 import Header from './components/Header.jsx'
 import List from './components/List.jsx'
 import Navbar from './components/Navbar.jsx'
@@ -24,6 +26,8 @@ function App() {
         </div>
 
         <List names={students} />
+        <Counter />
+        <Form />
       </main>
     </>
   )
