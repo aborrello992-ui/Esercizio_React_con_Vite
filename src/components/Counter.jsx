@@ -4,11 +4,11 @@ function Counter() {
   const [count, setCount] = useState(0)
 
   function incrementCount() {
-    setCount(count + 1)
+    setCount((prev) => prev + 1)
   }
 
   function decrementCount() {
-    setCount(count - 1)
+    setCount((prev) => prev - 1)
   }
 
   return (
