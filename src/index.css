@@ -30,6 +30,10 @@ body {
   text-decoration: none;
 }
 
+.navbar-link:hover {
+  text-decoration: underline;
+}
+
 .header {
   min-height: 100vh;
   display: flex;
@@ -50,6 +54,16 @@ body {
   width: min(90%, 720px);
   margin: 0 auto;
   padding: 64px 0;
+}
+
+.route-page {
+  padding-top: 110px;
+}
+
+.page-title {
+  margin: 0 0 24px;
+  color: #1f6feb;
+  font-size: 44px;
 }
 
 .form-field {
@@ -193,4 +207,56 @@ body {
   margin: 0;
   color: #4b5563;
   font-size: 18px;
+}
+
+.posts-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.post-card,
+.detail-card {
+  padding: 22px;
+  border: 1px solid #d8e2f0;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.post-title {
+  margin: 0 0 12px;
+  color: #202124;
+  font-size: 24px;
+  text-transform: capitalize;
+}
+
+.post-body,
+.detail-body {
+  color: #4b5563;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.post-link,
+.back-link {
+  display: inline-block;
+  color: #1f6feb;
+  font-size: 17px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.post-link:hover,
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.back-link {
+  margin-bottom: 24px;
+}
+
+.detail-id {
+  margin: 0 0 10px;
+  color: #64748b;
+  font-size: 18px;
+  font-weight: 700;
 }

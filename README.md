@@ -1,4 +1,4 @@
-# Esercizio  - React con Vite
+# Esercizio React con Vite
 
 Questo progetto e stato creato con il builder ufficiale di Vite usando il template React.
 
@@ -41,9 +41,18 @@ La nuova feature aggiunge:
 - una chiamata a JSONPlaceholder;
 - una lista di utenti con nome e mail.
 
+L'aggiornamento con React Router aggiunge:
+
+- installazione di `react-router-dom`;
+- una vera Single Page Application;
+- una rotta `/` per la Home;
+- una rotta `/posts` per mostrare tutti i post da JSONPlaceholder;
+- una rotta dinamica `/posts/:postId` per mostrare il dettaglio del singolo post.
+
 ## Tecnologie utilizzate
 
 - React
+- React Router
 - Vite
 - JavaScript
 - CSS
@@ -63,6 +72,10 @@ esercizio-02-vite-react/
 │   │   ├── List.jsx
 │   │   ├── LoadingData.jsx
 │   │   └── Navbar.jsx
+│   ├── views/
+│   │   ├── DetailView.jsx
+│   │   ├── Homepage.jsx
+│   │   └── PostsView.jsx
 │   ├── index.css
 │   └── main.jsx
 └── vite.config.js
@@ -74,7 +87,9 @@ esercizio-02-vite-react/
 
 Questo file e il punto di ingresso dell'applicazione React.
 
-Importa React, il file CSS principale e il componente `App`, poi monta l'applicazione dentro l'elemento HTML con id `root`.
+Importa React, il file CSS principale, `BrowserRouter` e il componente `App`, poi monta l'applicazione dentro l'elemento HTML con id `root`.
+
+`BrowserRouter` permette a React Router di gestire la navigazione lato client senza ricaricare tutta la pagina.
 
 ### `src/App.jsx`
 
@@ -82,11 +97,30 @@ Questo file contiene il componente principale dell'applicazione.
 
 Al suo interno sono presenti:
 
-- una label con classe `input-label`;
-- un input con classe `text-input`.
-- un array di nomi chiamato `students`;
-- i componenti `Navbar`, `Header`, `List`, `Counter`, `Form` e `LoadingData`;
-- l'uso di compound components per `List` e `Form`.
+- il componente `Navbar`;
+- il componente `Routes`;
+- tre rotte: `/`, `/posts` e `/posts/:postId`.
+
+Le rotte sono configurate cosi:
+
+```jsx
+<Routes>
+  <Route path="/" element={<Homepage />} />
+  <Route path="/posts" element={<PostsView />} />
+  <Route path="/posts/:postId" element={<DetailView />} />
+</Routes>
+```
+
+### `src/views/Homepage.jsx`
+
+Questa pagina contiene il contenuto principale creato negli esercizi precedenti:
+
+- `Header`;
+- input con label;
+- `List`;
+- `Counter`;
+- `Form`;
+- `LoadingData`.
 
 La label e collegata all'input grazie a:
 
@@ -114,11 +148,63 @@ Il componente `List` viene usato come compound component in questo modo:
 
 Il componente padre e `List`, mentre `List.Item` e un sotto-componente usato per costruire ogni elemento della lista.
 
+### `src/views/PostsView.jsx`
+
+Questa pagina viene mostrata quando l'utente visita:
+
+```txt
+/posts
+```
+
+La pagina esegue una chiamata API a:
+
+```txt
+https://jsonplaceholder.typicode.com/posts
+```
+
+I post ricevuti vengono salvati nello stato React e mostrati in una lista di card.
+
+Ogni card contiene un link verso il dettaglio del post:
+
+```jsx
+<Link to={`/posts/${post.id}`}>Leggi dettaglio</Link>
+```
+
+### `src/views/DetailView.jsx`
+
+Questa pagina viene mostrata quando l'utente visita una rotta dinamica, per esempio:
+
+```txt
+/posts/1
+```
+
+Il numero finale viene letto con `useParams`.
+
+Esempio:
+
+```jsx
+const { postId } = useParams()
+```
+
+Poi viene fatta una chiamata API al singolo post:
+
+```jsx
+fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
+```
+
+La pagina mostra:
+
+- id del post;
+- titolo;
+- contenuto.
+
 ### `src/components/Navbar.jsx`
 
 Questo componente contiene una navbar con due link.
 
-I link non hanno un `href`, perche la traccia specifica che non e necessario definirlo.
+I link sono stati aggiornati usando il componente `Link` di React Router.
+
+In questo modo la navigazione avviene senza ricaricare la pagina.
 
 ### `src/components/Header.jsx`
 

@@ -21,7 +21,7 @@ function LoadingData() {
       setUsers(data)
     } catch (error) {
       setError(error.message)
-    } finally {
+    } finally {                                                                                                                                                                                                    
       setIsLoading(false)
     }
   }
